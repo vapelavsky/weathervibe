@@ -13,7 +13,7 @@ send you weather information in chosen city and URL for Spotify playlist.
 4. Spotipy
 5. Pyowm
 
-#How to use?
+# How to use?
 
 1. git clone https://github.com/vapelavsky/weathervibe.git
 2. cd weathervibe/
