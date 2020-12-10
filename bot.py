@@ -1,12 +1,13 @@
+import spotipy
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 import pyowm
-from config import TOKEN, WTOKEN
+from config import TOKEN, WTOKEN, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET
 from pyowm.utils.config import get_default_config
 
 config_dict = get_default_config()
-config_dict['language'] = 'uk'
+config_dict['language'] = 'ru'
 owm = pyowm.OWM(WTOKEN, config_dict)
 mgr = owm.weather_manager()
 bot = Bot(token=TOKEN)
@@ -27,8 +28,15 @@ async def process_help_command(message: types.Message):
 async def weather_message(message: types.Message):
     observation = mgr.weather_at_place(message.text)
     w = observation.weather
-    temp = round(w.temperature('celsius').get('temp'))  # Присваиваем переменной значение температуры из таблицы
-    await message.answer(message.text + ": " + w.detailed_status + '\n\n' + "Температура: " + str(temp) + "℃")
+    temp = round(w.temperature('celsius').get('temp'))
+    sp = spotipy.Spotify(client_credentials_manager=spotipy.SpotifyClientCredentials(SPOTIPY_CLIENT_ID,
+                                                                                     SPOTIPY_CLIENT_SECRET))
+    results = sp.search(w.detailed_status, type='playlist')
+    items = results['playlists']['items']
+    playlist = items[0]
+    await message.answer(message.text + ": " + w.detailed_status + '\n\n' + "Температура: " + str(temp) + "℃"
+                         + '\n\n' + "Плейлист, который идеально подойдёт: " + playlist['name'] + '\n\n' + "Ссылка:" +
+                         playlist['external_urls']['spotify'])
 
 
 if __name__ == '__main__':
