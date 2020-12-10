@@ -20,30 +20,30 @@ button1 = KeyboardButton('/start')
 button2 = KeyboardButton('/help')
 button3 = KeyboardButton('/authors')
 
-markup3 = ReplyKeyboardMarkup().add(button2).add(button3)
-markup4 = ReplyKeyboardMarkup().add(button1).add(button3)
-markup5 = ReplyKeyboardMarkup().add(button1).add(button2)
+markup3 = ReplyKeyboardMarkup(resize_keyboard=True).add(button2).add(button3)
+markup4 = ReplyKeyboardMarkup(resize_keyboard=True).add(button1).add(button3)
+markup5 = ReplyKeyboardMarkup(resize_keyboard=True).add(button1).add(button2)
 
 
 @dp.message_handler(commands=['start'])
+@dp.message_handler(regexp=r'Получить настроение по погоде')
 async def start_command(message: types.Message):
-    if message.text == 'Получить настроение по погоде':
-        await message.reply(emojize("Привет!\n\nКакая бы у тебя не была погода, мы поможем тебе подобрать музыку.\n\n"
-                                    "Для этого достаточно написать название своего города - и ты получишь ссылку "
-                                    "в Spotify на погодный плейлист :sparkling_heart:"), reply_markup=markup3)
+    await message.reply(emojize("Привет!\n\nКакая бы у тебя не была погода, мы поможем тебе подобрать музыку.\n\n"
+                                "Для этого достаточно написать название своего города - и ты получишь ссылку "
+                                "в Spotify на погодный плейлист :sparkling_heart:"), reply_markup=markup3)
 
 
 @dp.message_handler(commands=['help'])
+@dp.message_handler(regexp=r'Помощь')
 async def help_command(message: types.Message):
-    if message.text == 'Помощь':
-        await message.reply("Напиши мне название своего города и я обязательно поделюсь с тобой музыкой по погоде!",
-                            reply_markup=markup4)
+    await message.reply("Напиши мне название своего города и я обязательно поделюсь с тобой музыкой по погоде!",
+                        reply_markup=markup4)
 
 
 @dp.message_handler(commands=['authors'])
+@dp.message_handler(regexp=r'Авторы')
 async def authors_command(message: types.Message):
-    if message.text == 'Авторы':
-        await message.reply("Weather Vibes v0.1\n\nС любовью, KnoorTech :3", reply_markup=markup5)
+    await message.reply("Weather Vibes v0.1\n\nС любовью, KnoorStudio :3", reply_markup=markup5)
 
 
 @dp.message_handler()
