@@ -1,5 +1,5 @@
-#WeatherVibes 0.1
-####Created by KnoorTech
+# WeatherVibes 0.1
+#### Created by KnoorTech
 
 Can you imagine, what is sound of your weather? Our telegram bot can answer on this question.
 
