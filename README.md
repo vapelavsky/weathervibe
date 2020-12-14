@@ -20,5 +20,5 @@ send you weather information in chosen city and URL for Spotify playlist.
 3. python3.8 -m venv venv
 4. . venv/bin/activate
 5. pip install -r requirements.txt
-6. Fill config.py with Aiogram token, OWM token, SPOTIPY_CLIENT_ID and SPOTIPY_CLIENT_SECRET 
+6. Fill config.py with Aiogram token, OWM token, SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET 
 7. python bot.py
